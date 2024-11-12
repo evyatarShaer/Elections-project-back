@@ -34,6 +34,10 @@ const userSchema = new Schema<IUser>(
       type: Boolean,
       default: false,
     },
+    votedFor: {
+      type: mongoose.Schema.Types.ObjectId, 
+      ref: 'Candidate'
+    }
   },
   // יוצר שדות של שעה ותאריך של כל עדכון ע"י מונגוס
   { timestamps: true }

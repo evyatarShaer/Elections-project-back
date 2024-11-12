@@ -1,4 +1,4 @@
-import { Request, Response } from 'express';
+import { Request, Response, NextFunction } from 'express';
 import user from '../models/userModel';
 import { createUserService } from '../services/userService';
 import { generateToken } from '../utils/token';
@@ -18,7 +18,7 @@ export const register = async (req: Request, res: Response) => {
     }
 };
 
-export const login = async (req: Request, res: Response) => {
+export const login = async (req: Request, res: Response, next: NextFunction) => {
     const { username, password } = req.body;
     const theUser = await user.findOne({ username });
 
@@ -34,4 +34,5 @@ export const login = async (req: Request, res: Response) => {
         maxAge: 3600000
     })
     res.status(201).json({ message: "התחברת בהצלחה", token })
+    next();
 }
